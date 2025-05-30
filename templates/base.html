@@ -1,0 +1,20 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        {% include 'parciais/_head.html' %}
+         <title>
+             {% block 'title' %}
+             {% endblock 'title' %}
+             BRD System
+         </title>
+    </head>
+    <body>
+        <header>
+            {% include 'parciais/_nav.html' %}
+        </header>
+        {% block 'body' %}
+        {% endblock 'body' %}
+    <script src="https://cdn.tailwindcss.com"></script>
+    </body>
+</html>

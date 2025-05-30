@@ -1,0 +1,328 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Ordem de Serviço</title>
+    <style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        font-size: 11px; /* Reduzido de 12px para 11px */
+        box-sizing: border-box;
+    }
+
+    .container {
+        width: 100%;
+        max-width: 800px;
+        margin: 20px auto; /* Reduzido de 40px para 20px */
+        border: 1px solid #000;
+    }
+
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px; /* Reduzido de 15px para 10px */
+    }
+
+    .logo {
+        width: 70px; /* Reduzido de 80px para 70px */
+        height: auto;
+    }
+
+    .title {
+        text-align: center;
+        font-size: 16px;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+    .os-info {
+        background-color: #e0e0e0;
+        padding: 8px; /* Reduzido de 10px para 8px */
+        width: 200px;
+    }
+
+    .section {
+        border-top: 1px solid #000;
+        padding: 8px; /* Reduzido de 10px para 8px */
+    }
+
+    .section-title {
+        text-align: center;
+        font-weight: bold;
+        text-transform: uppercase;
+        margin-bottom: 8px; /* Reduzido de 10px para 8px */
+    }
+
+    .row {
+        display: flex;
+        margin-bottom: 3px; /* Reduzido de 5px para 3px */
+        flex-wrap: wrap;
+    }
+
+    .col {
+        flex: 1;
+        min-width: 250px;
+        margin-right: 10px;
+    }
+
+    .label {
+        font-weight: bold;
+        margin-right: 5px;
+        display: inline-block;
+    }
+
+    .value {
+        /* Removido: border-bottom: 1px solid #ccc; */
+        flex-grow: 1;
+        min-height: 15px;
+        display: inline-block;
+        max-width: 100%;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        white-space: normal;
+    }
+
+    .full-width {
+        width: 100%;
+        display: block;
+    }
+
+    .orcamento-table {
+        width: 100%;
+    }
+
+    .orcamento-table td {
+        padding: 3px 0; /* Reduzido de 5px para 3px */
+    }
+
+    .orcamento-table .price {
+        width: 100px;
+        text-align: right;
+        color: #000000;
+    }
+
+    .signature-container {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 30px; /* Reduzido de 50px para 30px */
+        padding: 0 20px 10px; /* Reduzido padding-bottom de 20px para 10px */
+    }
+
+    .signature {
+        width: 45%;
+        text-align: center;
+    }
+
+    .signature-line {
+        border-top: 1px solid #000;
+        margin-bottom: 5px;
+    }
+
+    /* Estilo para o logo de texto */
+    .text-logo {
+        font-weight: bold;
+        font-size: 20px; /* Reduzido de 24px para 20px */
+        text-transform: uppercase;
+        color: #000;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 70px; /* Reduzido de 80px para 70px */
+    }
+
+    .text-logo .ps {
+        font-size: 26px; /* Reduzido de 30px para 26px */
+        line-height: 1;
+    }
+
+    .text-logo .games {
+        font-size: 14px; /* Reduzido de 16px para 14px */
+        line-height: 1;
+    }
+
+    /* Ajustes para campos longos */
+    .long-text-row {
+        display: block;
+        width: 100%;
+        margin-bottom: 3px; /* Reduzido de 5px para 3px */
+    }
+
+    .long-text-row .col {
+        width: 100%;
+        margin-right: 0;
+    }
+
+    .long-text-row .value {
+        display: block;
+        width: 100%;
+        padding: 2px 0; /* Reduzido de 3px para 2px */
+    }
+
+    /* Ajustes para impressão */
+    @media print {
+        body {
+            padding: 0; /* Removido padding para impressão */
+        }
+
+        .container {
+            margin: 0 auto; /* Removido margin-top para impressão */
+        }
+
+        .page-break {
+            page-break-before: avoid; /* Evita quebra de página */
+        }
+    }
+</style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <!-- Logo -->
+            <div class="text-logo">
+                <img src="{{ logo_url }}" class="logo" alt="Logo">
+            </div>
+
+            <div class="title">ORDEM DE SERVIÇO</div>
+
+            <div class="os-info">
+                <div><strong>O.S. Nº:</strong> {{ servico.id }}</div>
+                <div><strong>Data de abertura:</strong> {{ servico.data_abertura_formatada }}</div>
+            </div>
+        </div>
+
+        <!-- DADOS DO CLIENTE -->
+        <div class="section">
+            <div class="section-title">DADOS DO CLIENTE</div>
+            <div class="row">
+                <div class="col">
+                    <span class="label">Nome:</span>
+                    <span class="value">{{ servico.cliente.nome }}</span>
+                </div>
+                <div class="col">
+                    <span class="label">Documento:</span>
+                    <span class="value">{{ servico.cliente.documento }}</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <span class="label">Endereço:</span>
+                    <span class="value">{{ servico.cliente.endereco }}</span>
+                </div>
+                <div class="col">
+                    <span class="label">Bairro:</span>
+                    <span class="value">{{ servico.cliente.bairro }}</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <span class="label">Cidade:</span>
+                    <span class="value">{{ servico.cliente.cidade }}</span>
+                </div>
+                <div class="col">
+                    <span class="label">CEP:</span>
+                    <span class="value">{{ servico.cliente.cep }}</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <span class="label">Telefone:</span>
+                    <span class="value">{{ servico.cliente.telefone }}</span>
+                </div>
+                <div class="col">
+                    <span class="label">E-mail:</span>
+                    <span class="value">{{ servico.cliente.email }}</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- INFORMAÇÕES DO EQUIPAMENTO -->
+        <div class="section">
+            <div class="section-title">INFORMAÇÕES DO EQUIPAMENTO</div>
+            <div class="row">
+                <div class="col">
+                    <span class="label">Modelo do equipamento:</span>
+                    <span class="value">{{ servico.dispositivo }}</span>
+                </div>
+            </div>
+            <div class="long-text-row">
+                <div class="col">
+                    <span class="label">Acessórios:</span>
+                    <span class="value full-width">{{ servico.acessorios }}</span>
+                </div>
+            </div>
+            <div class="long-text-row">
+                <div class="col">
+                    <span class="label">Nº Série:</span>
+                    <span class="value full-width">{{ servico.numero_serie }}</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- RECLAMAÇÃO DO CLIENTE -->
+        <div class="section">
+            <div class="section-title">RECLAMAÇÃO DO CLIENTE</div>
+            <div class="long-text-row">
+                <div class="col">
+                    <span class="label">Defeito indicado pelo cliente:</span>
+                    <span class="value full-width">{{ servico.defeito_cliente }}</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- DIAGNÓSTICO E SERVIÇO -->
+        <div class="section">
+            <div class="section-title">DIAGNÓSTICO E SERVIÇO A SER EXECUTADO</div>
+            <div class="long-text-row">
+                <div class="col">
+                    <span class="label">Defeito encontrado pelo técnico:</span>
+                    <span class="value full-width">{{ servico.descricao_curta }}</span>
+                </div>
+            </div>
+            <div class="long-text-row">
+                <div class="col">
+                    <span class="label">Serviço executado:</span>
+                    <span class="value full-width">{{ servico.descricao_longa }}</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- GARANTIA E OBSERVAÇÕES -->
+        <div class="section">
+            <div class="section-title">GARANTIA E OUTRAS OBSERVAÇÕES</div>
+            <div class="row">
+                <div class="col">
+                    <span class="value">A garantia deste serviço é de 90 dias a partir da data de entrega, conforme CDC.</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ORÇAMENTO -->
+        <div class="section">
+            <div class="section-title">ORÇAMENTO</div>
+            <table class="orcamento-table">
+                <tr>
+                    <td>Valor total dos serviços:</td>
+                    <td class="price">R$ {{ servico.preco_servico|default:servico.preco }}</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- ASSINATURAS -->
+        <div class="signature-container page-break">
+            <div class="signature">
+                <div class="signature-line"></div>
+                <div>Assinatura Cliente</div>
+            </div>
+            <div class="signature">
+                <div class="signature-line"></div>
+                <div>Assinatura Responsável Técnico</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

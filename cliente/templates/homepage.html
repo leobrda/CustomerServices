@@ -1,0 +1,383 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block 'title' %}
+    Home |
+{% endblock 'title' %}
+
+{% block 'body' %}
+<!-- Hero Section com efeito de partículas -->
+<div class="relative min-h-screen bg-gradient-to-b from-gray-900 via-gray-800 to-black overflow-hidden">
+    <!-- Partículas animadas (efeito tech) -->
+    <div id="particles-js" class="absolute inset-0 z-0"></div>
+
+    <!-- Linhas de grade tech -->
+    <div class="absolute inset-0 z-0 opacity-20">
+        <div class="h-full w-full" style="background-image: linear-gradient(to right, #4f46e520 1px, transparent 1px), linear-gradient(to bottom, #4f46e520 1px, transparent 1px); background-size: 40px 40px;"></div>
+    </div>
+
+    <!-- Círculos decorativos -->
+    <div class="absolute top-20 right-10 w-64 h-64 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob"></div>
+    <div class="absolute top-40 left-10 w-72 h-72 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob animation-delay-2000"></div>
+    <div class="absolute bottom-20 right-20 w-80 h-80 bg-green-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob animation-delay-4000"></div>
+
+    <!-- Conteúdo principal -->
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="flex flex-col items-center justify-center min-h-[85vh] text-center">
+            <!-- Badge animada -->
+            <div class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gradient-to-r from-blue-500 to-purple-600 text-white mb-6 animate-pulse">
+                <span class="flex h-2 w-2 mr-2">
+                    <span class="animate-ping absolute inline-flex h-2 w-2 rounded-full bg-white opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
+                </span>
+                Sistema de Gestão Tecnológica
+            </div>
+
+            <!-- Título com efeito de typing -->
+            <h1 class="text-balance text-5xl font-bold tracking-tight text-white sm:text-6xl md:text-7xl max-w-4xl">
+                <span class="block">Controle de</span>
+                <span class="block mt-2 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">Serviços</span>
+            </h1>
+
+            <!-- Subtítulo com ícone -->
+            <p class="mt-6 text-xl text-gray-300 max-w-3xl">
+                <span class="inline-block animate-bounce-slow">🚀</span> Gerencie seus clientes e serviços com eficiência e tecnologia de ponta
+            </p>
+
+            <!-- Elemento decorativo SVG -->
+            <div class="relative w-full max-w-2xl mx-auto my-12">
+                <div class="absolute -inset-0.5 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 rounded-lg opacity-20 blur-lg"></div>
+                <div class="relative bg-gray-800/50 backdrop-blur-sm rounded-lg p-6 border border-gray-700">
+                    <!-- SVG decorativo tech -->
+                    <svg class="w-full h-auto max-h-64" viewBox="0 0 900 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Circuitos -->
+                        <path d="M100,200 L300,200 L300,100 L500,100 L500,300 L700,300 L700,200 L800,200"
+                              stroke="url(#techGradient)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"
+                              stroke-dasharray="10,15" class="animate-pulse-slow"/>
+
+                        <!-- Pontos de conexão -->
+                        <circle cx="100" cy="200" r="10" fill="#4f46e5" class="animate-ping-slow"/>
+                        <circle cx="300" cy="200" r="8" fill="#06b6d4"/>
+                        <circle cx="300" cy="100" r="8" fill="#8b5cf6"/>
+                        <circle cx="500" cy="100" r="8" fill="#4f46e5"/>
+                        <circle cx="500" cy="300" r="8" fill="#06b6d4"/>
+                        <circle cx="700" cy="300" r="8" fill="#8b5cf6"/>
+                        <circle cx="700" cy="200" r="8" fill="#4f46e5"/>
+                        <circle cx="800" cy="200" r="10" fill="#06b6d4" class="animate-ping-slow"/>
+
+                        <!-- Elementos decorativos -->
+                        <rect x="350" y="150" width="100" height="100" rx="10" stroke="#8b5cf6" stroke-width="2" fill="none" class="animate-pulse-slow"/>
+                        <circle cx="400" cy="200" r="30" stroke="#4f46e5" stroke-width="2" fill="none"/>
+
+                        <!-- Linhas de dados -->
+                        <path d="M150,250 C200,350 250,150 300,250" stroke="#06b6d4" stroke-width="2" stroke-dasharray="5,5"/>
+                        <path d="M550,150 C600,50 650,250 700,150" stroke="#8b5cf6" stroke-width="2" stroke-dasharray="5,5"/>
+
+                        <!-- Gradiente para os elementos -->
+                        <defs>
+                            <linearGradient id="techGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" stop-color="#4f46e5"/>
+                                <stop offset="50%" stop-color="#06b6d4"/>
+                                <stop offset="100%" stop-color="#8b5cf6"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Estatísticas -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-8 w-full max-w-3xl mx-auto">
+                <div class="bg-gray-800/50 backdrop-blur-sm p-4 rounded-xl border border-gray-700 transform transition-all duration-300 hover:scale-105">
+                    <div class="text-3xl font-bold text-blue-400">100%</div>
+                    <div class="text-gray-400 text-sm">Segurança</div>
+                </div>
+                <div class="bg-gray-800/50 backdrop-blur-sm p-4 rounded-xl border border-gray-700 transform transition-all duration-300 hover:scale-105">
+                    <div class="text-3xl font-bold text-green-400">24/7</div>
+                    <div class="text-gray-400 text-sm">Disponibilidade</div>
+                </div>
+                <div class="bg-gray-800/50 backdrop-blur-sm p-4 rounded-xl border border-gray-700 transform transition-all duration-300 hover:scale-105">
+                    <div class="text-3xl font-bold text-purple-400">
+                        {% if total_clientes %}
+                            {{ total_clientes }}
+                        {% else %}
+                            0
+                        {% endif %}
+                    </div>
+                    <div class="text-gray-400 text-sm">Clientes</div>
+                </div>
+            </div>
+
+            <!-- Botões de ação -->
+            <div class="flex flex-col sm:flex-row gap-4 mt-8">
+                {% if request.user.is_authenticated %}
+                <a href="{% url 'cadastrar_cliente' %}" class="group relative inline-flex items-center justify-center px-8 py-3 font-medium text-white bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg overflow-hidden transition-all duration-300 ease-out shadow-md hover:shadow-lg hover:scale-105">
+                    <span class="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-out"></span>
+
+                    <span class="relative flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                        </svg>
+                        CADASTRAR CLIENTE
+                    </span>
+                </a>
+                <a href="{% url 'servicos_abertos' %}" class="group relative inline-flex items-center justify-center px-8 py-3 font-medium text-white bg-gray-800 border border-gray-700 rounded-lg overflow-hidden transition-all duration-300 ease-out hover:bg-gray-700">
+                    <span class="relative flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                        </svg>
+                        VER SERVIÇOS
+                    </span>
+                </a>
+                {% else %}
+                <a href="{% url 'criar_conta' %}" class="group relative inline-flex items-center justify-center px-8 py-3 font-medium text-white bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg overflow-hidden transition-all duration-300 ease-out shadow-md hover:shadow-lg hover:scale-105">
+                    <span class="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-out"></span>
+
+                    <span class="relative flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                        </svg>
+                        CRIAR CONTA
+                    </span>
+                </a>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Seção de recursos -->
+        <div class="mt-24 mb-12">
+            <h2 class="text-3xl font-bold text-center text-white mb-12">Principais <span class="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">Recursos</span></h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="bg-gray-800/50 backdrop-blur-sm p-6 rounded-xl border border-gray-700 hover:border-blue-500 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/20 group">
+                    <div class="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center mb-4 group-hover:bg-blue-500/30 transition-all duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-white mb-2">Gestão de Clientes</h3>
+                    <p class="text-gray-400">Cadastre e gerencie seus clientes com facilidade, mantendo todos os dados organizados.</p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="bg-gray-800/50 backdrop-blur-sm p-6 rounded-xl border border-gray-700 hover:border-purple-500 transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/20 group">
+                    <div class="w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center mb-4 group-hover:bg-purple-500/30 transition-all duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-white mb-2">Controle de Serviços</h3>
+                    <p class="text-gray-400">Acompanhe todos os serviços em andamento, finalizados e prontos para entrega.</p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="bg-gray-800/50 backdrop-blur-sm p-6 rounded-xl border border-gray-700 hover:border-green-500 transition-all duration-300 hover:shadow-lg hover:shadow-green-500/20 group">
+                    <div class="w-12 h-12 bg-green-500/20 rounded-lg flex items-center justify-center mb-4 group-hover:bg-green-500/30 transition-all duration-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-white mb-2">Gestão Financeira</h3>
+                    <p class="text-gray-400">Controle pagamentos, emita recibos e acompanhe o desempenho financeiro do seu negócio.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Rodapé com código binário -->
+        <div class="mt-16 pt-8 border-t border-gray-800 text-center">
+            <div class="text-xs text-gray-600 font-mono overflow-hidden h-6">
+                <div class="binary-code">01010011 01100011 01101111 01110000 01110000 01101001 01100001 00100000
+                                            01100011 01101000 01100101 00100000 01101100 01100001 00100000 01110110
+                                            01101001 01100011 01110100 01101111 01110010 01101001 01100001 00100000
+                                            11000011 10101000 00100000 01101110 01101111 01110011 01110100 01110010
+                                            01100001 00100001
+                </div>
+            </div>
+            <p class="mt-4 text-gray-500">© {% now "Y" %} BRD System. Todos os direitos reservados.</p>
+        </div>
+    </div>
+</div>
+
+<!-- Estilos específicos -->
+<style>
+    /* Animações */
+    @keyframes blob {
+        0% { transform: scale(1); }
+        33% { transform: scale(1.1); }
+        66% { transform: scale(0.9); }
+        100% { transform: scale(1); }
+    }
+
+    @keyframes float {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-20px); }
+        100% { transform: translateY(0px); }
+    }
+
+    @keyframes slide {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-100%); }
+    }
+
+    @keyframes pulse-slow {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.5; }
+    }
+
+    @keyframes ping-slow {
+        0% { transform: scale(1); opacity: 1; }
+        75%, 100% { transform: scale(2); opacity: 0; }
+    }
+
+    .animate-blob {
+        animation: blob 7s infinite;
+    }
+
+    .animation-delay-2000 {
+        animation-delay: 2s;
+    }
+
+    .animation-delay-4000 {
+        animation-delay: 4s;
+    }
+
+    .animate-bounce-slow {
+        animation: float 3s ease-in-out infinite;
+    }
+
+    .animate-pulse-slow {
+        animation: pulse-slow 3s ease-in-out infinite;
+    }
+
+    .animate-ping-slow {
+        animation: ping-slow 3s cubic-bezier(0, 0, 0.2, 1) infinite;
+    }
+
+    /* Código binário animado */
+    .binary-code {
+        display: inline-block;
+        white-space: nowrap;
+        animation: slide 20s linear infinite;
+    }
+
+    /* Responsividade */
+    @media (max-width: 768px) {
+        .min-h-[85vh] {
+            min-height: 75vh;
+        }
+    }
+</style>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Configuração do particles.js
+        particlesJS('particles-js', {
+            "particles": {
+                "number": {
+                    "value": 80,
+                    "density": {
+                        "enable": true,
+                        "value_area": 800
+                    }
+                },
+                "color": {
+                    "value": "#4f46e5"
+                },
+                "shape": {
+                    "type": "circle",
+                    "stroke": {
+                        "width": 0,
+                        "color": "#000000"
+                    },
+                    "polygon": {
+                        "nb_sides": 5
+                    }
+                },
+                "opacity": {
+                    "value": 0.3,
+                    "random": false,
+                    "anim": {
+                        "enable": false,
+                        "speed": 1,
+                        "opacity_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "size": {
+                    "value": 3,
+                    "random": true,
+                    "anim": {
+                        "enable": false,
+                        "speed": 40,
+                        "size_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "line_linked": {
+                    "enable": true,
+                    "distance": 150,
+                    "color": "#4f46e5",
+                    "opacity": 0.2,
+                    "width": 1
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 2,
+                    "direction": "none",
+                    "random": false,
+                    "straight": false,
+                    "out_mode": "out",
+                    "bounce": false,
+                    "attract": {
+                        "enable": false,
+                        "rotateX": 600,
+                        "rotateY": 1200
+                    }
+                }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": {
+                        "enable": true,
+                        "mode": "grab"
+                    },
+                    "onclick": {
+                        "enable": true,
+                        "mode": "push"
+                    },
+                    "resize": true
+                },
+                "modes": {
+                    "grab": {
+                        "distance": 140,
+                        "line_linked": {
+                            "opacity": 0.5
+                        }
+                    },
+                    "bubble": {
+                        "distance": 400,
+                        "size": 40,
+                        "duration": 2,
+                        "opacity": 8,
+                        "speed": 3
+                    },
+                    "repulse": {
+                        "distance": 200,
+                        "duration": 0.4
+                    },
+                    "push": {
+                        "particles_nb": 4
+                    },
+                    "remove": {
+                        "particles_nb": 2
+                    }
+                }
+            },
+            "retina_detect": true
+        });
+    });
+</script>
+{% endblock 'body' %}

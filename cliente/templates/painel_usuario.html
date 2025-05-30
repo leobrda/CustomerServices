@@ -1,0 +1,292 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block 'body' %}
+<div class="max-w-7xl mx-auto py-8 px-4">
+    <!-- Informações do Usuário -->
+    <div class="bg-white rounded-2xl shadow p-6 mb-8">
+        <h2 class="text-xl font-bold text-gray-800 mb-4">Informações do Usuário</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div>
+                <p class="text-gray-500">Nome de usuário:</p>
+                <p class="font-semibold">{{ user.username }}</p>
+            </div>
+            <div>
+                <p class="text-gray-500">Email:</p>
+                <p class="font-semibold">{{ user.email }}</p>
+            </div>
+            <div>
+                <p class="text-gray-500">Data de Inscrição:</p>
+                <p class="font-semibold">{{ user.date_joined|date:"d/m/Y H:i" }}</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Visão Geral / Dashboard -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Total de Serviços -->
+        <div class="bg-white rounded-2xl shadow p-6">
+            <h3 class="text-sm font-medium text-gray-500">Total de Serviços</h3>
+            <p class="text-lg font-bold text-gray-800">Abertos: {{ total_servicos_abertos }}</p>
+            <p class="text-lg font-bold text-gray-800">Finalizados: {{ total_servicos_finalizados }}</p>
+            <p class="text-lg font-bold text-gray-800">Pagos: {{ total_servicos_pagos }}</p>
+            <p class="text-lg font-bold text-gray-800">Entregues: {{ total_servicos_entregues }}</p>
+        </div>
+
+        <!-- Total por Forma de Pagamento -->
+        <div class="bg-white rounded-2xl shadow p-6">
+            <h3 class="text-sm font-medium text-gray-500">Total Recebido por Forma de Pagamento</h3>
+            <ul class="text-gray-800">
+                <li>Pix: R$ {{ total_pix }}</li>
+                <li>Crédito: R$ {{ total_credito }}</li>
+                <li>Débito: R$ {{ total_debito }}</li>
+                <li>Dinheiro: R$ {{ total_dinheiro }}</li>
+            </ul>
+        </div>
+
+        <!-- Clientes Cadastrados -->
+        <div class="bg-white rounded-2xl shadow p-6">
+            <h3 class="text-sm font-medium text-gray-500">Total de Clientes</h3>
+            <p class="text-2xl font-bold text-gray-800">{{ total_clientes }}</p>
+        </div>
+
+        <!-- Faturamento do Mês -->
+        <div class="bg-white rounded-2xl shadow p-6">
+            <form method="get" class="mb-4">
+                <label for="mes" class="font-medium mr-2">Selecionar Mês:</label>
+                <select name="mes" id="mes" class="border rounded px-2 py-1">
+                    {% for numero, nome in meses.items %}
+                        <option value="{{ numero }}" {% if numero == mes_selecionado %}selected{% endif %}>{{ nome }}</option>
+                    {% endfor %}
+                </select>
+                <label for="ano" class="font-medium ml-4 mr-2">Ano:</label>
+                <select name="ano" id="ano" class="border rounded px-2 py-1">
+                    {% for ano in anos %}
+                        <option value="{{ ano }}" {% if ano == ano_selecionado %}selected{% endif %}>{{ ano }}</option>
+                    {% endfor %}
+                </select>
+                <button type="submit" class="ml-2 bg-blue-500 hover:bg-blue-600 text-white font-bold py-1 px-4 rounded">Filtrar</button>
+            </form>
+            <h3 class="text-sm font-medium text-gray-500">
+                Faturamento de {{ nome_mes_selecionado }}/{{ ano_selecionado }}
+            </h3>
+            <p class="text-2xl font-bold text-emerald-600">R$ {{ faturamento_mes }}</p>
+        </div>
+
+
+    </div>
+
+    <!-- Acesso rápido a ações -->
+    <div class="bg-white rounded-2xl shadow-md p-6 mb-6">
+        <h2 class="text-xl font-bold mb-4">Ações Rápidas</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <a href="{% url 'cadastrar_cliente' %}" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg text-center">Adicionar Novo Cliente</a>
+            <a href="{% url 'cadastrar_servico' %}" class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg text-center">Criar Novo Serviço</a>
+        </div>
+    </div>
+
+    <!-- Tarefas Recentes -->
+    <div class="bg-white rounded-2xl shadow-md p-6 mb-6">
+        <h2 class="text-xl font-bold mb-4">Tarefas Recentes</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+                <h3 class="text-lg font-semibold mb-2">Últimos Serviços Cadastrados</h3>
+                <ul class="list-disc list-inside">
+                    {% for servico in ultimos_servicos_cadastrados %}
+                        <li>{{ servico.cliente.nome }} - {{ servico.descricao_curta }} - Aberto em: {{ servico.data_abertura_formatada }}</li>
+                    {% empty %}
+                        <li>Nenhum serviço cadastrado recentemente.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-lg font-semibold mb-2">Últimos Serviços Finalizados</h3>
+                <ul class="list-disc list-inside">
+                    {% for servico in ultimos_servicos_finalizados %}
+                        <li>{{ servico.cliente.nome }} - {{ servico.descricao_curta }} - Finalizado em: {{ servico.data_finalizacao_formatada }}</li>
+                    {% empty %}
+                        <li>Nenhum serviço finalizado recentemente.</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+        <div class="mt-6">
+            <h3 class="text-lg font-semibold mb-2">Pagamentos Recentes</h3>
+            <ul class="list-disc list-inside">
+                {% for pagamento in pagamentos_recentes %}
+                    <li>{{ pagamento.servico.cliente.nome }} - {{ pagamento.servico.descricao_curta }} - R$ {{ pagamento.servico.preco }} - Pago no dia: {{ pagamento.data_pagamento_formatada }}</li>
+                {% empty %}
+                    <li>Nenhum pagamento recente.</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <!-- Notificações e Alertas -->
+    <div class="bg-white rounded-2xl shadow-md p-6 mb-6">
+        <h2 class="text-xl font-bold mb-4">Notificações e Alertas</h2>
+        <ul class="list-disc list-inside">
+            {% for servico in servicos_em_aberto_mais_x_dias %}
+                <li class="text-red-600">Serviço em aberto há mais de {{ dias_limite }} dias: {{ servico.cliente.nome }} - {{ servico.dispositivo }} - {{ servico.descricao_curta }} - {{ servico.descricao_longa }} - Aberto em: {{ servico.data_abertura_formatada }}</li>
+            {% empty %}
+                <li>Não há serviços em aberto acima do limite de dias.</li>
+            {% endfor %}
+        </ul>
+        <ul class="list-disc list-inside mt-4">
+            {% for servico in servicos_aguardando_pagamento %}
+                <li class="text-yellow-600">Serviço aguardando pagamento: {{ servico.cliente.nome }} - {{ servico.dispositivo }} - {{ servico.descricao_curta }} - {{ servico.descricao_longa }} - Finalizado em: {{ servico.data_finalizacao_formatada }}</li>
+            {% empty %}
+                <li>Todos os serviços estão pagos.</li>
+            {% endfor %}
+        </ul>
+        <ul class="list-disc list-inside mt-4">
+            {% for servico in servicos_entrega_pendente %}
+                <li class="text-indigo-600">Serviço aguardando entrega ou retirada: {{ servico.cliente.nome }} - {{ servico.dispositivo }} - {{ servico.descricao_curta }} - {{ servico.descricao_longa }} - Finalizado em: {{ servico.data_finalizacao_formatada }}</li>
+            {% empty %}
+                <li>Não há serviços com entrega pendente.</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="bg-white rounded-2xl shadow p-6 mt-8">
+        <div class="mb-4 border-b border-gray-200">
+            <nav class="-mb-px flex space-x-8" id="tabs">
+                <button onclick="abrirAba('aba-clientes')" class="tab-link text-gray-600 hover:text-blue-500 py-2 px-4 border-b-2 font-medium text-sm border-transparent active" id="tab-clientes">Clientes</button>
+                <button onclick="abrirAba('aba-servicos')" class="tab-link text-gray-600 hover:text-blue-500 py-2 px-4 border-b-2 font-medium text-sm border-transparent" id="tab-servicos">Serviços</button>
+            </nav>
+        </div>
+
+        <!-- Tabela de Clientes -->
+        <div id="aba-clientes" class="tab-content block">
+            <h3 class="text-lg font-semibold text-gray-700 mb-4">Lista de Clientes</h3>
+            <div class="overflow-x-auto">
+                <table class="min-w-full text-sm text-left text-gray-500 border">
+                    <thead class="bg-gray-100 text-gray-700">
+                        <tr>
+                            <th class="py-2 px-4">Nome</th>
+                            <th class="py-2 px-4">Telefone</th>
+                            <th class="py-2 px-4">Endereço</th>
+                            <th class="py-2 px-4">Cidade</th>
+                            <th class="py-2 px-4">Estado</th>
+                            <th class="py-2 px-4">Bairro</th>
+                            <th class="py-2 px-4">CEP</th>
+                            <th class="py-2 px-4">Documento</th>
+                            <th class="py-2 px-4">Email</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for cliente in clientes %}
+                            <tr class="border-b">
+                                <td class="py-2 px-4">{{ cliente.nome }}</td>
+                                <td class="py-2 px-4">{{ cliente.telefone }}</td>
+                                <td class="py-2 px-4">{{ cliente.endereco }}</td>
+                                <td class="py-2 px-4">{{ cliente.cidade }}</td>
+                                <td class="py-2 px-4">{{ cliente.estado }}</td>
+                                <td class="py-2 px-4">{{ cliente.bairro }}</td>
+                                <td class="py-2 px-4">{{ cliente.cep }}</td>
+                                <td class="py-2 px-4">{{ cliente.documento }}</td>
+                                <td class="py-2 px-4">{{ cliente.email }}</td>
+                            </tr>
+                        {% empty %}
+                            <tr><td colspan="4" class="text-center py-4">Nenhum cliente cadastrado.</td></tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Tabela de Serviços por Cliente -->
+        <div id="aba-servicos" class="tab-content hidden">
+            <h3 class="text-lg font-semibold text-gray-700 mb-4">Serviços por Cliente</h3>
+            {% for cliente in clientes_com_servicos %}
+                <div class="mb-6">
+                    <h4 class="text-md font-bold text-blue-600 mb-2">{{ cliente.nome }}</h4>
+                    {% if cliente.servicos.all %}
+                        <table class="min-w-full text-sm text-left text-gray-500 border">
+                            <thead class="bg-gray-100 text-gray-700">
+                                <tr>
+                                    <th class="py-2 px-4">Imagem</th>
+                                    <th class="py-2 px-4">Dispositivo</th>
+                                    <th class="py-2 px-4">Acessórios</th>
+                                    <th class="py-2 px-4">Nº de Série</th>
+                                    <th class="py-2 px-4">Defeito Informado</th>
+                                    <th class="py-2 px-4">Defeito Encontrado</th>
+                                    <th class="py-2 px-4">Serviço Executado</th>
+                                    <th class="py-2 px-4">Data de Abertura</th>
+                                    <th class="py-2 px-4">Data de Finalização</th>
+                                    <th class="py-2 px-4">Data do Pagamento</th>
+                                    <th class="py-2 px-4">Data Entrega/Retirada</th>
+                                    <th class="py-2 px-4">Preço</th>
+                                    <th class="py-2 px-4">Status</th>
+                                    <th class="py-2 px-4">Ação</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for servico in servicos_para_emissao_os %}
+                                    <tr class="border-b">
+                                        <td class="py-2 px-4">
+                                            {% if servico.imagem %}
+                                                <img src="{{ servico.imagem.url }}" alt="Imagem do serviço">
+                                            {% else %}
+                                                <img src="{% static 'generic.jpg' %}" alt="Imagem do serviço">
+                                            {% endif %}
+                                        </td>
+                                        <td class="py-2 px-4">{{ servico.dispositivo }}</td>
+                                        <td class="py-2 px-4">{{ servico.acessorios|default:"-" }}</td>
+                                        <td class="py-2 px-4">{{ servico.numero_serie|default:"-" }}</td>
+                                        <td class="py-2 px-4">{{ servico.defeito_cliente|default:"-" }}</td>
+                                        <td class="py-2 px-4">{{ servico.descricao_curta|default:"-" }}</td>
+                                        <td class="py-2 px-4">{{ servico.descricao_longa|default:"-" }}</td>
+                                        <td class="py-2 px-4">{{ servico.data_abertura_formatada|default:"-" }}</td>
+                                        <td class="py-2 px-4">{{ servico.data_finalizacao_formatada|default:"-" }}</td>
+                                        <td class="py-2 px-4">
+                                            {% if servico.pagamento and servico.pagamento.data_pagamento %}
+                                                {{ servico.pagamento.data_pagamento_formatada }}
+                                            {% endif %}
+                                        </td>
+                                        <td class="py-2 px-4">{{ servico.data_entrega_formatada|default:"-" }}</td>
+                                        <td class="py-2 px-4">R$ {{ servico.preco|floatformat:2 }}</td>
+                                        <td class="py-2 px-4">
+                                            {% if servico.status == 'C' %}Criado
+                                            {% elif servico.status == 'F' %}
+                                                {% if servico.pagamento and servico.pagamento.status == 'P' %}
+                                                    Pago
+                                                {% else %}
+                                                    Finalizado
+                                                {% endif %}
+                                            {% elif servico.status == 'E' %}
+                                                Entregue
+                                            {% endif %}
+                                        </td>
+                                        <td class="py-2 px-4">
+                                            <a href="{% url 'emitir_ordem_servico' servico.id %}" target="_blank" class="text-blue-600 hover:underline text-sm">EMITIR OS</a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    {% else %}
+                        <p class="text-gray-500 text-sm">Nenhum serviço cadastrado para este cliente.</p>
+                    {% endif %}
+                </div>
+            {% empty %}
+                <p class="text-center text-sm text-gray-500">Nenhum cliente com serviços cadastrados.</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<script>
+    function abrirAba(id) {
+        const conteudos = document.querySelectorAll('.tab-content');
+        const tabs = document.querySelectorAll('.tab-link');
+
+        conteudos.forEach(c => c.classList.add('hidden'));
+        tabs.forEach(t => t.classList.remove('active', 'border-blue-500', 'text-blue-600'));
+
+        document.getElementById(id).classList.remove('hidden');
+        document.getElementById('tab-' + id.split('-')[1]).classList.add('active', 'border-blue-500', 'text-blue-600');
+    }
+</script>
+{% endblock 'body' %}

@@ -1,0 +1,343 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block 'title' %}
+  Login | Tech Service
+{% endblock 'title' %}
+
+{% block 'body' %}
+<!-- Hero Section com efeito de partículas -->
+<div class="relative min-h-screen bg-gradient-to-b from-gray-900 via-gray-800 to-black overflow-hidden py-12">
+  <!-- Partículas animadas (efeito tech) -->
+  <div id="particles-js" class="absolute inset-0 z-0"></div>
+
+  <!-- Linhas de grade tech -->
+  <div class="absolute inset-0 z-0 opacity-20">
+      <div class="h-full w-full" style="background-image: linear-gradient(to right, #4f46e520 1px, transparent 1px), linear-gradient(to bottom, #4f46e520 1px, transparent 1px); background-size: 40px 40px;"></div>
+  </div>
+
+  <!-- Círculos decorativos -->
+  <div class="absolute top-20 right-10 w-64 h-64 bg-cyan-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob"></div>
+  <div class="absolute bottom-40 left-10 w-72 h-72 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob animation-delay-2000"></div>
+
+  <!-- Mensagens de alerta - Estilo tecnológico -->
+  {% if messages %}
+  {% for message in messages %}
+      <div class="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-md animate-bounce-in">
+          <div class="bg-{{ message.tags|default:'info' }}-600 text-white p-4 rounded-lg shadow-lg border-2 border-{{ message.tags|default:'info' }}-700">
+              <div class="flex items-center">
+                  {% if message.tags == 'success' %}
+                      <svg class="h-6 w-6 text-white mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                      </svg>
+                  {% elif message.tags == 'error' %}
+                      <svg class="h-6 w-6 text-white mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                      </svg>
+                  {% elif message.tags == 'warning' %}
+                      <svg class="h-6 w-6 text-white mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                      </svg>
+                  {% else %}
+                      <svg class="h-6 w-6 text-white mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                  {% endif %}
+                  <p class="font-bold text-lg">{{ message }}</p>
+                  <button class="ml-auto text-white hover:text-gray-200" onclick="this.parentElement.parentElement.style.display='none';">
+                      <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                      </svg>
+                  </button>
+              </div>
+          </div>
+      </div>
+  {% endfor %}
+  {% endif %}
+
+  <!-- Conteúdo principal -->
+  <div class="relative z-10 max-w-md mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Título da página com efeito de gradiente -->
+      <div class="text-center mb-10">
+          <h1 class="text-4xl font-bold text-white">
+              <span class="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">Login</span>
+          </h1>
+          <p class="mt-3 text-gray-400 max-w-2xl mx-auto">
+              Entre com suas credenciais para acessar o sistema
+          </p>
+      </div>
+
+      <!-- Formulário com efeito de vidro e borda brilhante -->
+      <div class="form-container relative">
+          <!-- Efeito de borda brilhante -->
+          <div class="absolute -inset-0.5 bg-gradient-to-r from-cyan-600 via-blue-600 to-purple-600 rounded-lg blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-gradient-xy"></div>
+
+          <!-- Formulário com efeito de vidro -->
+          <form method="post" class="relative bg-gray-900/90 backdrop-blur-sm p-8 rounded-lg shadow-2xl border border-gray-700/50">
+              {% csrf_token %}
+
+              <div class="space-y-6">
+                  <!-- Nome de Usuário -->
+                  <div class="form-group">
+                      <label for="username" class="block text-gray-300 font-medium mb-1">
+                          <span class="flex items-center">
+                              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                              </svg>
+                              Nome de Usuário:
+                          </span>
+                      </label>
+                      <input type="text" id="username" name="username" required
+                          class="w-full p-3 bg-gray-800/50 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
+                  </div>
+
+                  <!-- Senha -->
+                  <div class="form-group">
+                      <label for="password" class="block text-gray-300 font-medium mb-1">
+                          <span class="flex items-center">
+                              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                              </svg>
+                              Senha:
+                          </span>
+                      </label>
+                      <input type="password" id="password" name="password" required
+                          class="w-full p-3 bg-gray-800/50 border border-gray-700 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all">
+                  </div>
+              </div>
+
+              <!-- Botão de envio com efeito de gradiente -->
+              <div class="mt-8">
+                  <button type="submit" class="group relative w-full inline-flex items-center justify-center px-8 py-4 font-medium text-white bg-gradient-to-r from-cyan-600 to-blue-600 rounded-lg overflow-hidden transition-all duration-300 ease-out shadow-md hover:shadow-lg hover:scale-[1.02]">
+                      <span class="absolute inset-0 bg-gradient-to-r from-cyan-500 to-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-out"></span>
+                      <span class="relative flex items-center">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+                          </svg>
+                          ENTRAR
+                      </span>
+                  </button>
+              </div>
+
+              <!-- Links adicionais -->
+              <div class="mt-6 text-center space-y-3">
+                  <p class="text-gray-400">
+                      <a href="{% url 'password_reset' %}" class="text-cyan-400 hover:text-cyan-300 transition-colors font-medium flex items-center justify-center">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
+                          </svg>
+                          Esqueci minha senha
+                      </a>
+                  </p>
+                  <p class="text-gray-400">
+                      Não tem uma conta?
+                      <a href="{% url 'criar_conta' %}" class="text-blue-400 hover:text-blue-300 transition-colors font-medium">
+                          Crie uma
+                      </a>
+                  </p>
+              </div>
+          </form>
+      </div>
+  </div>
+</div>
+
+<!-- Estilos específicos -->
+<style>
+  /* Animações */
+  @keyframes blob {
+      0% { transform: scale(1); }
+      33% { transform: scale(1.1); }
+      66% { transform: scale(0.9); }
+      100% { transform: scale(1); }
+  }
+
+  @keyframes bounceIn {
+      0% {
+          opacity: 0;
+          transform: translate(-50%, -20px) scale(0.8);
+      }
+      50% {
+          opacity: 1;
+          transform: translate(-50%, 10px) scale(1.05);
+      }
+      100% {
+          opacity: 1;
+          transform: translate(-50%, 0) scale(1);
+      }
+  }
+
+  @keyframes gradient-xy {
+      0% {
+          background-position: 0% 50%;
+      }
+      50% {
+          background-position: 100% 50%;
+      }
+      100% {
+          background-position: 0% 50%;
+      }
+  }
+
+  .animate-blob {
+      animation: blob 7s infinite;
+  }
+
+  .animation-delay-2000 {
+      animation-delay: 2s;
+  }
+
+  .animate-bounce-in {
+      animation: bounceIn 0.5s ease-out forwards;
+  }
+
+  .animate-gradient-xy {
+      animation: gradient-xy 15s ease infinite;
+      background-size: 400% 400%;
+  }
+
+  /* Cores específicas para os tipos de mensagens */
+  .bg-success-600 { background-color: #00C853; }
+  .bg-error-600 { background-color: #D32F2F; }
+  .bg-warning-600 { background-color: #FFA000; }
+  .bg-info-600 { background-color: #0288D1; }
+
+  .border-success-700 { border-color: #00B04A; }
+  .border-error-700 { border-color: #B71C1C; }
+  .border-warning-700 { border-color: #FF8F00; }
+  .border-info-700 { border-color: #01579B; }
+
+  /* Efeito de foco nos inputs */
+  input:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2);
+  }
+</style>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+      // Configuração do particles.js
+      particlesJS('particles-js', {
+          "particles": {
+              "number": {
+                  "value": 80,
+                  "density": {
+                      "enable": true,
+                      "value_area": 800
+                  }
+              },
+              "color": {
+                  "value": "#4f46e5"
+              },
+              "shape": {
+                  "type": "circle",
+                  "stroke": {
+                      "width": 0,
+                      "color": "#000000"
+                  },
+                  "polygon": {
+                      "nb_sides": 5
+                  }
+              },
+              "opacity": {
+                  "value": 0.3,
+                  "random": false,
+                  "anim": {
+                      "enable": false,
+                      "speed": 1,
+                      "opacity_min": 0.1,
+                      "sync": false
+                  }
+              },
+              "size": {
+                  "value": 3,
+                  "random": true,
+                  "anim": {
+                      "enable": false,
+                      "speed": 40,
+                      "size_min": 0.1,
+                      "sync": false
+                  }
+              },
+              "line_linked": {
+                  "enable": true,
+                  "distance": 150,
+                  "color": "#4f46e5",
+                  "opacity": 0.2,
+                  "width": 1
+              },
+              "move": {
+                  "enable": true,
+                  "speed": 2,
+                  "direction": "none",
+                  "random": false,
+                  "straight": false,
+                  "out_mode": "out",
+                  "bounce": false,
+                  "attract": {
+                      "enable": false,
+                      "rotateX": 600,
+                      "rotateY": 1200
+                  }
+              }
+          },
+          "interactivity": {
+              "detect_on": "canvas",
+              "events": {
+                  "onhover": {
+                      "enable": true,
+                      "mode": "grab"
+                  },
+                  "onclick": {
+                      "enable": true,
+                      "mode": "push"
+                  },
+                  "resize": true
+              },
+              "modes": {
+                  "grab": {
+                      "distance": 140,
+                      "line_linked": {
+                          "opacity": 0.5
+                      }
+                  },
+                  "bubble": {
+                      "distance": 400,
+                      "size": 40,
+                      "duration": 2,
+                      "opacity": 8,
+                      "speed": 3
+                  },
+                  "repulse": {
+                      "distance": 200,
+                      "duration": 0.4
+                  },
+                  "push": {
+                      "particles_nb": 4
+                  },
+                  "remove": {
+                      "particles_nb": 2
+                  }
+              }
+          },
+          "retina_detect": true
+      });
+
+      // Adicionar classe para auto-dismiss nas mensagens
+      const messages = document.querySelectorAll('[class*="fixed top-4 left-1/2"]');
+      messages.forEach(message => {
+          setTimeout(() => {
+              message.style.opacity = '0';
+              message.style.transform = 'translate(-50%, -20px)';
+              message.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+
+              // Remover completamente após a animação
+              setTimeout(() => {
+                  message.remove();
+              }, 500);
+          }, 5000);
+      });
+  });
+</script>
+{% endblock 'body' %}
