@@ -4,8 +4,9 @@
 *.pyc
 __pycache__
 db.sqlite3
-static/
+templates/static/
 media/
+.idea/
 
 # Backup files #
 *.bak
